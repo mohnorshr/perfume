@@ -1,0 +1,2076 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NOIR ESSENCE | عطر رجالي فاخر</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Playfair+Display:wght@400;500;600;700&family=Tajawal:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🖤</text></svg>">
+    <style>
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #0a0a0a;
+            --secondary: #c9a962;
+            --accent: #d4a853;
+            --text-primary: #f5f0e8;
+            --text-secondary: rgba(245, 240, 232, 0.6);
+            --glass: rgba(201, 169, 98, 0.08);
+            --glass-border: rgba(201, 169, 98, 0.2);
+            --gradient-dark: linear-gradient(135deg, #0a0a0a 0%, #1a1510 50%, #0d0d0d 100%);
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Tajawal', 'Playfair Display', Georgia, serif;
+            background: var(--gradient-dark);
+            color: var(--text-primary);
+            overflow-x: hidden;
+            line-height: 1.8;
+        }
+
+        ::selection {
+            background: var(--secondary);
+            color: var(--primary);
+        }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--primary);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--secondary);
+            border-radius: 4px;
+        }
+
+        /* Loading Screen */
+        .loader {
+            position: fixed;
+            inset: 0;
+            background: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10000;
+            transition: opacity 0.8s ease, visibility 0.8s ease;
+        }
+
+        .loader.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .loader-content {
+            text-align: center;
+        }
+
+        .loader-logo {
+            width: 80px;
+            height: 80px;
+            border: 2px solid var(--secondary);
+            border-top-color: transparent;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 24px;
+        }
+
+        .loader-text {
+            font-family: 'Playfair Display', serif;
+            font-size: 24px;
+            color: var(--secondary);
+            letter-spacing: 8px;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Navigation */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            padding: 24px 48px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            transition: all 0.4s ease;
+        }
+
+        .nav.scrolled {
+            background: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(20px);
+            padding: 16px 48px;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .nav-logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 28px;
+            font-weight: 600;
+            color: var(--secondary);
+            text-decoration: none;
+            letter-spacing: 4px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 40px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-primary);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            letter-spacing: 1px;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 50%;
+            width: 0;
+            height: 1px;
+            background: var(--secondary);
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+
+        .nav-links a:hover {
+            color: var(--secondary);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 6px;
+            cursor: pointer;
+            padding: 8px;
+        }
+
+        .nav-toggle span {
+            width: 28px;
+            height: 2px;
+            background: var(--secondary);
+            transition: all 0.3s ease;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            padding: 120px 48px 80px;
+        }
+
+        #particles-canvas {
+            position: absolute;
+            inset: 0;
+            z-index: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+            max-width: 1400px;
+            width: 100%;
+        }
+
+        .hero-text {
+            opacity: 0;
+            transform: translateY(40px);
+        }
+
+        .hero-text.animate {
+            animation: fadeInUp 1s ease forwards;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            padding: 8px 20px;
+            border: 1px solid var(--secondary);
+            font-size: 12px;
+            letter-spacing: 3px;
+            color: var(--secondary);
+            margin-bottom: 32px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-badge::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: var(--secondary);
+            transform: translateX(-100%);
+            transition: transform 0.5s ease;
+        }
+
+        .hero-badge:hover::before {
+            transform: translateX(0);
+        }
+
+        .hero-badge span {
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-badge:hover span {
+            color: var(--primary);
+        }
+
+        .hero-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(48px, 6vw, 80px);
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: 24px;
+            color: var(--text-primary);
+        }
+
+        .hero-title span {
+            color: var(--secondary);
+            display: inline-block;
+        }
+
+        .hero-title .word {
+            display: inline-block;
+            overflow: hidden;
+        }
+
+        .hero-title .word span {
+            display: inline-block;
+            transform: translateY(100%);
+            animation: wordReveal 0.8s ease forwards;
+        }
+
+        @keyframes wordReveal {
+            to { transform: translateY(0); }
+        }
+
+        .hero-description {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 20px;
+            color: var(--text-secondary);
+            margin-bottom: 40px;
+            max-width: 500px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 16px 40px;
+            font-family: 'Tajawal', sans-serif;
+            font-size: 14px;
+            font-weight: 500;
+            letter-spacing: 2px;
+            border: none;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--secondary) 0%, var(--accent) 100%);
+            color: var(--primary);
+        }
+
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, var(--accent) 0%, var(--secondary) 100%);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .btn-primary:hover::before {
+            opacity: 1;
+        }
+
+        .btn-primary span {
+            position: relative;
+            z-index: 1;
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--secondary);
+            border: 1px solid var(--secondary);
+        }
+
+        .btn-secondary:hover {
+            background: var(--secondary);
+            color: var(--primary);
+            box-shadow: 0 0 30px rgba(201, 169, 98, 0.3);
+        }
+
+        .hero-visual {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            perspective: 1000px;
+        }
+
+        .bottle-container {
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.1s ease;
+        }
+
+        .bottle-glow {
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(201, 169, 98, 0.3) 0%, transparent 70%);
+            border-radius: 50%;
+            filter: blur(60px);
+            animation: pulse 4s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.5; }
+            50% { transform: scale(1.2); opacity: 0.8; }
+        }
+
+        .bottle {
+            width: 280px;
+            height: 450px;
+            position: relative;
+            transform-style: preserve-3d;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotateY(0deg); }
+            50% { transform: translateY(-20px) rotateY(5deg); }
+        }
+
+        .bottle-body {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 160px;
+            height: 320px;
+            background: linear-gradient(180deg, 
+                rgba(40, 35, 30, 0.9) 0%, 
+                rgba(20, 18, 15, 0.95) 50%,
+                rgba(30, 25, 20, 0.9) 100%);
+            border-radius: 20px 20px 30px 30px;
+            box-shadow: 
+                inset -20px 0 40px rgba(0, 0, 0, 0.5),
+                inset 20px 0 40px rgba(201, 169, 98, 0.1),
+                0 30px 60px rgba(0, 0, 0, 0.5);
+        }
+
+        .bottle-body::before {
+            content: '';
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            right: 20px;
+            bottom: 20px;
+            border: 1px solid rgba(201, 169, 98, 0.2);
+            border-radius: 15px;
+        }
+
+        .bottle-neck {
+            position: absolute;
+            bottom: 320px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50px;
+            height: 60px;
+            background: linear-gradient(90deg, 
+                rgba(30, 25, 20, 0.9) 0%,
+                rgba(201, 169, 98, 0.2) 50%,
+                rgba(30, 25, 20, 0.9) 100%);
+            border-radius: 5px 5px 0 0;
+        }
+
+        .bottle-cap {
+            position: absolute;
+            bottom: 380px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 50px;
+            background: linear-gradient(180deg, 
+                var(--secondary) 0%, 
+                var(--accent) 50%,
+                #8a7340 100%);
+            border-radius: 8px 8px 4px 4px;
+            box-shadow: 
+                0 5px 20px rgba(201, 169, 98, 0.4),
+                inset 0 2px 10px rgba(255, 255, 255, 0.2);
+        }
+
+        .bottle-label {
+            position: absolute;
+            top: 80px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            text-align: center;
+        }
+
+        .bottle-label h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 18px;
+            color: var(--secondary);
+            letter-spacing: 4px;
+            margin-bottom: 8px;
+        }
+
+        .bottle-label p {
+            font-size: 10px;
+            color: var(--text-secondary);
+            letter-spacing: 2px;
+        }
+
+        /* Decorative Elements */
+        .deco-line {
+            position: absolute;
+            width: 1px;
+            height: 200px;
+            background: linear-gradient(180deg, transparent, var(--secondary), transparent);
+            animation: lineFloat 3s ease-in-out infinite;
+        }
+
+        @keyframes lineFloat {
+            0%, 100% { transform: translateY(0); opacity: 0.3; }
+            50% { transform: translateY(-30px); opacity: 0.6; }
+        }
+
+        .deco-circle {
+            position: absolute;
+            border: 1px solid var(--glass-border);
+            border-radius: 50%;
+            animation: rotate 20s linear infinite;
+        }
+
+        @keyframes rotate {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Story Section */
+        .story {
+            padding: 120px 48px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .story-bg {
+            position: absolute;
+            inset: 0;
+            background: url('https://images.unsplash.com/photo-1595425970377-c9703cf48b6d?w=1920&q=80') center/cover;
+            opacity: 0.05;
+        }
+
+        .story-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .story-image {
+            position: relative;
+            height: 500px;
+            overflow: hidden;
+            border-radius: 4px;
+        }
+
+        .story-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.8s ease;
+        }
+
+        .story-image:hover img {
+            transform: scale(1.05);
+        }
+
+        .story-image::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border: 1px solid var(--glass-border);
+            pointer-events: none;
+        }
+
+        .story-text {
+            opacity: 0;
+            transform: translateX(40px);
+        }
+
+        .story-text.animate {
+            animation: fadeInRight 1s ease forwards;
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 14px;
+            color: var(--secondary);
+            letter-spacing: 4px;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .section-title::before {
+            content: '';
+            width: 40px;
+            height: 1px;
+            background: var(--secondary);
+        }
+
+        .story-text h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(32px, 4vw, 48px);
+            font-weight: 600;
+            line-height: 1.3;
+            margin-bottom: 32px;
+        }
+
+        .story-text p {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 18px;
+            color: var(--text-secondary);
+            margin-bottom: 24px;
+        }
+
+        .story-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 32px;
+            margin-top: 48px;
+            padding-top: 48px;
+            border-top: 1px solid var(--glass-border);
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-family: 'Playfair Display', serif;
+            font-size: 48px;
+            color: var(--secondary);
+            line-height: 1;
+            margin-bottom: 8px;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            color: var(--text-secondary);
+            letter-spacing: 2px;
+        }
+
+        /* Features Section */
+        .features {
+            padding: 120px 48px;
+            position: relative;
+        }
+
+        .features-header {
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto 80px;
+        }
+
+        .features-header h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(36px, 4vw, 56px);
+            margin-bottom: 24px;
+        }
+
+        .features-header p {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 20px;
+            color: var(--text-secondary);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 32px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .feature-card {
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            padding: 48px 40px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.5s ease;
+            opacity: 0;
+            transform: translateY(40px);
+        }
+
+        .feature-card.animate {
+            animation: fadeInUp 0.8s ease forwards;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--secondary), transparent);
+            transform: translateX(-100%);
+            transition: transform 0.6s ease;
+        }
+
+        .feature-card:hover::before {
+            transform: translateX(0);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            border-color: var(--secondary);
+        }
+
+        .feature-icon {
+            width: 64px;
+            height: 64px;
+            margin-bottom: 32px;
+            color: var(--secondary);
+            transition: transform 0.5s ease;
+        }
+
+        .feature-card:hover .feature-icon {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        .feature-card h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 24px;
+            margin-bottom: 16px;
+        }
+
+        .feature-card p {
+            color: var(--text-secondary);
+            font-size: 16px;
+            line-height: 1.8;
+        }
+
+        /* Notes Section */
+        .notes {
+            padding: 120px 48px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .notes-bg {
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse at center, rgba(201, 169, 98, 0.05) 0%, transparent 70%);
+        }
+
+        .notes-header {
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto 60px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .notes-header h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(36px, 4vw, 56px);
+            margin-bottom: 24px;
+        }
+
+        .notes-container {
+            max-width: 900px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .note-item {
+            border: 1px solid var(--glass-border);
+            margin-bottom: 16px;
+            overflow: hidden;
+            transition: all 0.4s ease;
+        }
+
+        .note-item:hover {
+            border-color: var(--secondary);
+        }
+
+        .note-header {
+            padding: 24px 32px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            background: var(--glass);
+            transition: background 0.3s ease;
+        }
+
+        .note-header:hover {
+            background: rgba(201, 169, 98, 0.1);
+        }
+
+        .note-title {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .note-title h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 20px;
+        }
+
+        .note-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .note-item:nth-child(1) .note-dot {
+            background: #e8c547;
+            box-shadow: 0 0 20px rgba(232, 197, 71, 0.5);
+        }
+
+        .note-item:nth-child(2) .note-dot {
+            background: #8b6914;
+            box-shadow: 0 0 20px rgba(139, 105, 20, 0.5);
+        }
+
+        .note-item:nth-child(3) .note-dot {
+            background: #3d2914;
+            box-shadow: 0 0 20px rgba(61, 41, 20, 0.5);
+        }
+
+        .note-toggle {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid var(--glass-border);
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+
+        .note-item.active .note-toggle {
+            background: var(--secondary);
+            border-color: var(--secondary);
+            transform: rotate(45deg);
+        }
+
+        .note-toggle svg {
+            width: 20px;
+            height: 20px;
+            color: var(--secondary);
+            transition: color 0.3s ease;
+        }
+
+        .note-item.active .note-toggle svg {
+            color: var(--primary);
+        }
+
+        .note-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease;
+        }
+
+        .note-item.active .note-content {
+            max-height: 300px;
+        }
+
+        .note-content-inner {
+            padding: 32px;
+            background: rgba(0, 0, 0, 0.2);
+        }
+
+        .note-ingredients {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .ingredient {
+            padding: 8px 16px;
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        /* Gallery Section */
+        .gallery {
+            padding: 120px 48px;
+        }
+
+        .gallery-header {
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto 60px;
+        }
+
+        .gallery-header h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(36px, 4vw, 56px);
+            margin-bottom: 24px;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            aspect-ratio: 1;
+            cursor: pointer;
+            opacity: 0;
+            transform: scale(0.9);
+        }
+
+        .gallery-item.animate {
+            animation: scaleIn 0.6s ease forwards;
+        }
+
+        @keyframes scaleIn {
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, transparent 50%, rgba(10, 10, 10, 0.9) 100%);
+            display: flex;
+            align-items: flex-end;
+            padding: 24px;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .gallery-item:hover .gallery-overlay {
+            opacity: 1;
+        }
+
+        .gallery-overlay span {
+            font-family: 'Playfair Display', serif;
+            font-size: 18px;
+            color: var(--secondary);
+        }
+
+        /* Testimonials Section */
+        .testimonials {
+            padding: 120px 48px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .testimonials-bg {
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse at bottom, rgba(201, 169, 98, 0.08) 0%, transparent 60%);
+        }
+
+        .testimonials-header {
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto 60px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .testimonials-header h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(36px, 4vw, 56px);
+            margin-bottom: 24px;
+        }
+
+        .testimonials-slider {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .testimonial-card {
+            text-align: center;
+            padding: 0 40px;
+        }
+
+        .testimonial-stars {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-bottom: 32px;
+        }
+
+        .testimonial-stars svg {
+            width: 24px;
+            height: 24px;
+            color: var(--secondary);
+            animation: starPulse 2s ease-in-out infinite;
+        }
+
+        .testimonial-stars svg:nth-child(2) { animation-delay: 0.2s; }
+        .testimonial-stars svg:nth-child(3) { animation-delay: 0.4s; }
+        .testimonial-stars svg:nth-child(4) { animation-delay: 0.6s; }
+        .testimonial-stars svg:nth-child(5) { animation-delay: 0.8s; }
+
+        @keyframes starPulse {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.2); opacity: 0.8; }
+        }
+
+        .testimonial-text {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 28px;
+            font-style: italic;
+            line-height: 1.6;
+            color: var(--text-primary);
+            margin-bottom: 32px;
+            min-height: 150px;
+        }
+
+        .testimonial-author {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .testimonial-author strong {
+            font-family: 'Playfair Display', serif;
+            font-size: 18px;
+            color: var(--secondary);
+        }
+
+        .testimonial-author span {
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        /* CTA Section */
+        .cta {
+            padding: 120px 48px;
+            position: relative;
+        }
+
+        .cta-container {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .cta h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(36px, 4vw, 56px);
+            margin-bottom: 24px;
+        }
+
+        .cta p {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 20px;
+            color: var(--text-secondary);
+            margin-bottom: 48px;
+        }
+
+        .cta-form {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .form-group {
+            position: relative;
+            text-align: start;
+        }
+
+        .form-group.full {
+            grid-column: 1 / -1;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 20px;
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            color: var(--text-primary);
+            font-family: 'Tajawal', sans-serif;
+            font-size: 16px;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            border-color: var(--secondary);
+            box-shadow: 0 0 20px rgba(201, 169, 98, 0.2);
+        }
+
+        .form-group label {
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-secondary);
+            font-size: 14px;
+            pointer-events: none;
+            transition: all 0.3s ease;
+        }
+
+        .form-group textarea + label {
+            top: 20px;
+            transform: none;
+        }
+
+        .form-group input:focus + label,
+        .form-group input:not(:placeholder-shown) + label,
+        .form-group textarea:focus + label,
+        .form-group textarea:not(:placeholder-shown) + label {
+            top: 0;
+            right: 12px;
+            font-size: 11px;
+            color: var(--secondary);
+            background: var(--primary);
+            padding: 0 8px;
+        }
+
+        .form-group textarea {
+            min-height: 120px;
+            resize: none;
+        }
+
+        .cta-btn {
+            grid-column: 1 / -1;
+            margin-top: 16px;
+            position: relative;
+        }
+
+        .cta-btn .btn {
+            width: 100%;
+        }
+
+        .success-message {
+            grid-column: 1 / -1;
+            padding: 20px;
+            background: rgba(201, 169, 98, 0.1);
+            border: 1px solid var(--secondary);
+            color: var(--secondary);
+            display: none;
+            animation: fadeInUp 0.5s ease;
+        }
+
+        .success-message.show {
+            display: block;
+        }
+
+        /* Footer */
+        .footer {
+            padding: 80px 48px 40px;
+            border-top: 1px solid var(--glass-border);
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 60px;
+        }
+
+        .footer-brand h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 32px;
+            color: var(--secondary);
+            margin-bottom: 16px;
+            letter-spacing: 4px;
+        }
+
+        .footer-brand p {
+            color: var(--text-secondary);
+            font-size: 14px;
+            line-height: 1.8;
+        }
+
+        .footer-links h4 {
+            font-family: 'Playfair Display', serif;
+            font-size: 16px;
+            color: var(--text-primary);
+            margin-bottom: 24px;
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+
+        .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--secondary);
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 16px;
+            margin-top: 24px;
+        }
+
+        .footer-social a {
+            width: 40px;
+            height: 40px;
+            border: 1px solid var(--glass-border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-secondary);
+            transition: all 0.3s ease;
+        }
+
+        .footer-social a:hover {
+            border-color: var(--secondary);
+            color: var(--secondary);
+            transform: translateY(-4px);
+        }
+
+        .footer-bottom {
+            max-width: 1200px;
+            margin: 60px auto 0;
+            padding-top: 40px;
+            border-top: 1px solid var(--glass-border);
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 14px;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInRight {
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .hero-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .hero-text {
+                order: 2;
+            }
+
+            .hero-visual {
+                order: 1;
+            }
+
+            .hero-description {
+                margin: 0 auto 40px;
+            }
+
+            .hero-buttons {
+                justify-content: center;
+            }
+
+            .story-content {
+                grid-template-columns: 1fr;
+            }
+
+            .story-image {
+                height: 400px;
+            }
+
+            .gallery-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav {
+                padding: 16px 24px;
+            }
+
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: rgba(10, 10, 10, 0.98);
+                flex-direction: column;
+                padding: 32px;
+                gap: 24px;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .nav-toggle {
+                display: flex;
+            }
+
+            .hero {
+                padding: 100px 24px 60px;
+            }
+
+            .bottle {
+                width: 200px;
+                height: 340px;
+            }
+
+            .bottle-body {
+                width: 120px;
+                height: 240px;
+            }
+
+            .bottle-neck {
+                bottom: 240px;
+                width: 36px;
+                height: 45px;
+            }
+
+            .bottle-cap {
+                bottom: 285px;
+                width: 60px;
+                height: 38px;
+            }
+
+            .story-stats {
+                grid-template-columns: 1fr;
+                gap: 24px;
+            }
+
+            .cta-form {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .gallery-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Reduced Motion */
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Loader -->
+    <div class="loader" id="loader">
+        <div class="loader-content">
+            <div class="loader-logo"></div>
+            <div class="loader-text">NOIR ESSENCE</div>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="nav" id="nav">
+        <a href="#" class="nav-logo">NOIR</a>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="#story">القصة</a></li>
+            <li><a href="#features">المميزات</a></li>
+            <li><a href="#notes">الرائحة</a></li>
+            <li><a href="#gallery">المعرض</a></li>
+            <li><a href="#contact">اطلب الآن</a></li>
+        </ul>
+        <div class="nav-toggle" id="navToggle">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="hero">
+        <canvas id="particles-canvas"></canvas>
+        
+        <!-- Decorative Elements -->
+        <div class="deco-circle" style="width: 600px; height: 600px; top: -200px; right: -200px; opacity: 0.1;"></div>
+        <div class="deco-circle" style="width: 400px; height: 400px; bottom: -100px; left: -100px; opacity: 0.08;"></div>
+        
+        <div class="hero-content">
+            <div class="hero-text" id="heroText">
+                <div class="hero-badge">
+                    <span>مجموعة جديدة 2024</span>
+                </div>
+                <h1 class="hero-title">
+                    <span class="word"><span>اكتشف</span></span>
+                    <span class="word"><span>جوهر</span></span>
+                    <span class="word"><span>الأناقة</span></span>
+                </h1>
+                <p class="hero-description">
+                    عطر NOIR ESSENCE يجسد الفخامة والغموض في كل رشة. تجربة حسية فريدة تدوم ساعات طويلة.
+                </p>
+                <div class="hero-buttons">
+                    <a href="#contact" class="btn btn-primary">
+                        <span>اكتشف المزيد</span>
+                    </a>
+                    <a href="#notes" class="btn btn-secondary">
+                        تعرف على الرائحة
+                    </a>
+                </div>
+            </div>
+            
+            <div class="hero-visual">
+                <div class="bottle-container" id="bottleContainer">
+                    <div class="bottle-glow"></div>
+                    <div class="bottle">
+                        <div class="bottle-cap"></div>
+                        <div class="bottle-neck"></div>
+                        <div class="bottle-body">
+                            <div class="bottle-label">
+                                <h3>NOIR</h3>
+                                <p>ESSENCE</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Story Section -->
+    <section class="story" id="story">
+        <div class="story-bg"></div>
+        <div class="story-content">
+            <div class="story-image reveal-on-scroll">
+                <img src="https://images.unsplash.com/photo-1541643600914-78b084683601?w=800&q=80" alt="عطور فاخرة">
+            </div>
+            <div class="story-text" id="storyText">
+                <div class="section-title">قصتنا</div>
+                <h2>إرث من الفخامة<br>عبر الأجيال</h2>
+                <p>
+                    منذ عام 1892، وعائلة فيرتوشي تُصنع أجود العطور في قلب باريس. كل قارورة تحمل قصة شغف وإتقان يدوي.
+                </p>
+                <p>
+                    NOIR ESSENCE هو تحفة جديدة من هذه السلسلة العريقة، يجمع بين أجود المكونات الطبيعية من أربع قارات.
+                </p>
+                <div class="story-stats">
+                    <div class="stat">
+                        <div class="stat-number" data-target="132">0</div>
+                        <div class="stat-label">سنة من الخبرة</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number" data-target="47">0</div>
+                        <div class="stat-label">مكون طبيعي</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number" data-target="24">0</div>
+                        <div class="stat-label">ساعة ثبات</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features" id="features">
+        <div class="features-header reveal-on-scroll">
+            <div class="section-title" style="justify-content: center;">لماذا نحن</div>
+            <h2>تميز يفوق التوقعات</h2>
+            <p>كل تفصيلة صُممت لتقدم لك تجربة استثنائية</p>
+        </div>
+        
+        <div class="features-grid">
+            <div class="feature-card reveal-on-scroll" style="animation-delay: 0.1s;">
+                <svg class="feature-icon" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <circle cx="32" cy="32" r="28"/>
+                    <path d="M32 16v32M16 32h32"/>
+                    <circle cx="32" cy="32" r="12"/>
+                </svg>
+                <h3>جودة مطلقة</h3>
+                <p>مكونات طبيعية بنسبة 100% مستوردة من أفضل المزارع حول العالم. كل قارورة تخضع لاختبارات جودة صارمة.</p>
+            </div>
+            
+            <div class="feature-card reveal-on-scroll" style="animation-delay: 0.2s;">
+                <svg class="feature-icon" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <path d="M32 8l8 16 18 3-13 13 3 18-16-8-16 8 3-18-13-13 18-3z"/>
+                </svg>
+                <h3>ثبات استثنائي</h3>
+                <p>تركيبة مبتكرة تضمن بقاء الرائحة على بشرتك لمدة 24 ساعة كاملة دون الحاجة لإعادة الرش.</p>
+            </div>
+            
+            <div class="feature-card reveal-on-scroll" style="animation-delay: 0.3s;">
+                <svg class="feature-icon" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <rect x="8" y="16" width="48" height="40" rx="4"/>
+                    <path d="M20 16V12a12 12 0 0124 0v4"/>
+                    <circle cx="32" cy="36" r="8"/>
+                    <path d="M32 28v16M24 36h16"/>
+                </svg>
+                <h3>تصميم فاخر</h3>
+                <p>قارورة مصنوعة يدوياً من الكريستال البندقي، مع علبة خشبية مطلية بالذهب الحقيقي.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Notes Section -->
+    <section class="notes" id="notes">
+        <div class="notes-bg"></div>
+        <div class="notes-header reveal-on-scroll">
+            <div class="section-title" style="justify-content: center;">تركيبة الرائحة</div>
+            <h2>استكشف طبقات العطر</h2>
+            <p>اكتشف المكونات الدقيقة التي تجعل من NOIR ESSENCE تجربة فريدة</p>
+        </div>
+        
+        <div class="notes-container">
+            <div class="note-item active reveal-on-scroll">
+                <div class="note-header" onclick="toggleNote(this)">
+                    <div class="note-title">
+                        <div class="note-dot"></div>
+                        <h3>الطبقة العليا - Top Notes</h3>
+                    </div>
+                    <div class="note-toggle">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M12 5v14M5 12h14"/>
+                        </svg>
+                    </div>
+                </div>
+                <div class="note-content">
+                    <div class="note-content-inner">
+                        <p style="color: var(--text-secondary); margin-bottom: 20px;">
+                            اول ما تحس به عند الرش - الانطباع الأول الذي يدوم 15-30 دقيقة
+                        </p>
+                        <div class="note-ingredients">
+                            <span class="ingredient">البرغamot الإيطالي</span>
+                            <span class="ingredient">الفلفل الوردي</span>
+                            <span class="ingredient">الليمون الصقلي</span>
+                            <span class="ingredient">الزنجبيل الطازج</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="note-item reveal-on-scroll">
+                <div class="note-header" onclick="toggleNote(this)">
+                    <div class="note-title">
+                        <div class="note-dot"></div>
+                        <h3>الطبقة الوسطى - Heart Notes</h3>
+                    </div>
+                    <div class="note-toggle">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M12 5v14M5 12h14"/>
+                        </svg>
+                    </div>
+                </div>
+                <div class="note-content">
+                    <div class="note-content-inner">
+                        <p style="color: var(--text-secondary); margin-bottom: 20px;">
+                            قلب العطر - الرائحة المميزة التي تبقى لساعات
+                        </p>
+                        <div class="note-ingredients">
+                            <span class="ingredient">خشب الصندل الهندي</span>
+                            <span class="ingredient">الورد البلغاري</span>
+                            <span class="ingredient">الزعفران الفارسي</span>
+                            <span class="ingredient">الباتشولي</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="note-item reveal-on-scroll">
+                <div class="note-header" onclick="toggleNote(this)">
+                    <div class="note-title">
+                        <div class="note-dot"></div>
+                        <h3>الطبقة الأساسية - Base Notes</h3>
+                    </div>
+                    <div class="note-toggle">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M12 5v14M5 12h14"/>
+                        </svg>
+                    </div>
+                </div>
+                <div class="note-content">
+                    <div class="note-content-inner">
+                        <p style="color: var(--text-secondary); margin-bottom: 20px;">
+                            الاساس - الرائحة العميقة التي تدوم طوال اليوم
+                        </p>
+                        <div class="note-ingredients">
+                            <span class="ingredient">العنبر</span>
+                            <span class="ingredient">المسك الأبيض</span>
+                            <span class="ingredient">خشب الأرز الأطلسي</span>
+                            <span class="ingredient">الفانيلا المدغشقرية</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section class="gallery" id="gallery">
+        <div class="gallery-header reveal-on-scroll">
+            <div class="section-title" style="justify-content: center;">المعرض</div>
+            <h2>لمحات من عالم الفخامة</h2>
+        </div>
+        
+        <div class="gallery-grid">
+            <div class="gallery-item reveal-on-scroll" style="animation-delay: 0.1s;">
+                <img src="https://images.unsplash.com/photo-1594035910387-fea47794261f?w=600&q=80" alt="عطر فاخر">
+                <div class="gallery-overlay">
+                    <span>جلسة تصوير حصرية</span>
+                </div>
+            </div>
+            <div class="gallery-item reveal-on-scroll" style="animation-delay: 0.2s;">
+                <img src="https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?w=600&q=80" alt="قارورة عطر">
+                <div class="gallery-overlay">
+                    <span>تصميم القارورة</span>
+                </div>
+            </div>
+            <div class="gallery-item reveal-on-scroll" style="animation-delay: 0.3s;">
+                <img src="https://images.unsplash.com/photo-1595425970377-c9703cf48b6d?w=600&q=80" alt="صناعة العطر">
+                <div class="gallery-overlay">
+                    <span>ورشة العمل</span>
+                </div>
+            </div>
+            <div class="gallery-item reveal-on-scroll" style="animation-delay: 0.4s;">
+                <img src="https://images.unsplash.com/photo-1617897903246-719242758050?w=600&q=80" alt="إضاءة عطر">
+                <div class="gallery-overlay">
+                    <span>تأثير الإضاءة</span>
+                </div>
+            </div>
+            <div class="gallery-item reveal-on-scroll" style="animation-delay: 0.5s;">
+                <img src="https://images.unsplash.com/photo-1590736969955-71cc94901144?w=600&q=80" alt="خشب وعطر">
+                <div class="gallery-overlay">
+                    <span>المكونات الطبيعية</span>
+                </div>
+            </div>
+            <div class="gallery-item reveal-on-scroll" style="animation-delay: 0.6s;">
+                <img src="https://images.unsplash.com/photo-1595425970378-7d7ea5bb5f68?w=600&q=80" alt="مختبر">
+                <div class="gallery-overlay">
+                    <span>عملية التصنيع</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials" id="testimonials">
+        <div class="testimonials-bg"></div>
+        <div class="testimonials-header reveal-on-scroll">
+            <div class="section-title" style="justify-content: center;">آراء العملاء</div>
+            <h2>ماذا يقولون عنا</h2>
+        </div>
+        
+        <div class="testimonials-slider reveal-on-scroll">
+            <div class="testimonial-card" id="testimonialCard">
+                <div class="testimonial-stars">
+                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                </div>
+                <p class="testimonial-text" id="testimonialText">
+                    "عطر استثنائي حقاً. ثباته مذهل والريحة عميقة وغنية. تلقيت كمائن كثيرة منذ استخدمته."
+                </p>
+                <div class="testimonial-author">
+                    <strong id="testimonialAuthor">أحمد المنصور</strong>
+                    <span id="testimonialRole">رائد أعمال - دبي</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta" id="contact">
+        <div class="cta-container reveal-on-scroll">
+            <div class="section-title" style="justify-content: center;">اطلب الآن</div>
+            <h2>احصل على نسختك</h2>
+            <p>املأ النموذج أدناه وسنتواصل معك خلال 24 ساعة</p>
+            
+            <form class="cta-form" id="orderForm">
+                <div class="form-group">
+                    <input type="text" id="name" placeholder=" " required>
+                    <label for="name">الاسم الكامل</label>
+                </div>
+                <div class="form-group">
+                    <input type="tel" id="phone" placeholder=" " required>
+                    <label for="phone">رقم الهاتف</label>
+                </div>
+                <div class="form-group full">
+                    <input type="email" id="email" placeholder=" " required>
+                    <label for="email">البريد الإلكتروني</label>
+                </div>
+                <div class="form-group full">
+                    <textarea id="message" placeholder=" " rows="4"></textarea>
+                    <label for="message">ملاحظات إضافية</label>
+                </div>
+                <div class="cta-btn">
+                    <button type="submit" class="btn btn-primary">
+                        <span>إرسال الطلب</span>
+                    </button>
+                </div>
+                <div class="success-message" id="successMessage">
+                    ✓ تم استلام طلبك بنجاح! سنتواصل معك قريباً.
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <h3>NOIR ESSENCE</h3>
+                <p>نقدم لكم أجود العطور منذ عام 1892. كل قارورة تحكي قصة شغف وإتقان.</p>
+                <div class="footer-social">
+                    <a href="#" aria-label="Instagram">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="2" y="2" width="20" height="20" rx="5"/>
+                            <circle cx="12" cy="12" r="4"/>
+                            <circle cx="18" cy="6" r="1"/>
+                        </svg>
+                    </a>
+                    <a href="#" aria-label="Twitter">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"/>
+                        </svg>
+                    </a>
+                    <a href="#" aria-label="Facebook">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+            
+            <div class="footer-links">
+                <h4>روابط سريعة</h4>
+                <ul>
+                    <li><a href="#story">قصتنا</a></li>
+                    <li><a href="#features">المميزات</a></li>
+                    <li><a href="#notes">الرائحة</a></li>
+                    <li><a href="#gallery">المعرض</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-links">
+                <h4>المساعدة</h4>
+                <ul>
+                    <li><a href="#">الأسئلة الشائعة</a></li>
+                    <li><a href="#">سياسة الإرجاع</a></li>
+                    <li><a href="#">الشحن والتوصيل</a></li>
+                    <li><a href="#">العناية بالعطر</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-links">
+                <h4>تواصل معنا</h4>
+                <ul>
+                    <li><a href="tel:+966501234567">+966 50 123 4567</a></li>
+                    <li><a href="mailto:info@noiressence.com">info@noiressence.com</a></li>
+                    <li><a href="#">الرياض، المملكة العربية السعودية</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>© 2024 NOIR ESSENCE. جميع الحقوق محفوظة.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Loader
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.getElementById('loader').classList.add('hidden');
+                animateHero();
+            }, 1500);
+        });
+
+        // Navigation
+        const nav = document.getElementById('nav');
+        const navToggle = document.getElementById('navToggle');
+        const navLinks = document.getElementById('navLinks');
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+        });
+
+        navToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+
+        // Hero Animation
+        function animateHero() {
+            const heroText = document.getElementById('heroText');
+            heroText.classList.add('animate');
+
+            // Animate words
+            const words = document.querySelectorAll('.hero-title .word span');
+            words.forEach((word, index) => {
+                word.style.animationDelay = `${0.3 + index * 0.15}s`;
+            });
+        }
+
+        // 3D Bottle Effect
+        const bottleContainer = document.getElementById('bottleContainer');
+        const hero = document.getElementById('hero');
+
+        hero.addEventListener('mousemove', (e) => {
+            const rect = hero.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+            
+            const rotateX = (y - centerY) / 20;
+            const rotateY = (centerX - x) / 20;
+            
+            bottleContainer.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+        });
+
+        hero.addEventListener('mouseleave', () => {
+            bottleContainer.style.transform = 'rotateX(0) rotateY(0)';
+        });
+
+        // Particles Canvas
+        const canvas = document.getElementById('particles-canvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+        let animationId;
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+
+        class Particle {
+            constructor() {
+                this.reset();
+            }
+
+            reset() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 2 + 0.5;
+                this.speedY = Math.random() * 0.5 - 0.25;
+                this.speedX = Math.random() * 0.5 - 0.25;
+                this.opacity = Math.random() * 0.5 + 0.2;
+                this.pulseSpeed = Math.random() * 0.02 + 0.01;
+                this.pulseOffset = Math.random() * Math.PI * 2;
+            }
+
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+
+                if (this.x < 0 || this.x > canvas.width || this.y < 0 || this.y > canvas.height) {
+                    this.reset();
+                }
+            }
+
+            draw() {
+                const pulse = Math.sin(Date.now() * this.pulseSpeed + this.pulseOffset) * 0.3 + 0.7;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(201, 169, 98, ${this.opacity * pulse})`;
+                ctx.fill();
+            }
+        }
+
+        function initParticles() {
+            particles = [];
+            const particleCount = Math.min(80, Math.floor(canvas.width * canvas.height / 15000));
+            for (let i = 0; i < particleCount; i++) {
+                particles.push(new Particle());
+            }
+        }
+
+        function animateParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            particles.forEach(particle => {
+                particle.update();
+                particle.draw();
+            });
+
+            animationId = requestAnimationFrame(animateParticles);
+        }
+
+        resizeCanvas();
+        initParticles();
+        animateParticles();
+
+        window.addEventListener('resize', () => {
+            resizeCanvas();
+            initParticles();
+        });
+
+        // Scroll Animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate');
+                    
+                    // Counter animation for stats
+                    if (entry.target.querySelector('.stat-number')) {
+                        entry.target.querySelectorAll('.stat-number').forEach(counter => {
+                            animateCounter(counter);
+                        });
+                    }
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.reveal-on-scroll').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Counter Animation
+        function animateCounter(element) {
+            const target = parseInt(element.dataset.target);
+            const duration = 2000;
+            const start = performance.now();
+
+            function update(currentTime) {
+                const elapsed = currentTime - start;
+                const progress = Math.min(elapsed / duration, 1);
+                const easeOut = 1 - Math.pow(1 - progress, 3);
+                const current = Math.floor(easeOut * target);
+                
+                element.textContent = current;
+                
+                if (progress < 1) {
+                    requestAnimationFrame(update);
+                }
+            }
+
+            requestAnimationFrame(update);
+        }
+
+        // Notes Accordion
+        function toggleNote(header) {
+            const noteItem = header.parentElement;
+            const isActive = noteItem.classList.contains('active');
+            
+            // Close all notes
+            document.querySelectorAll('.note-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            
+            // Open clicked note if it wasn't active
+            if (!isActive) {
+                noteItem.classList.add('active');
+            }
+        }
+
+        // Testimonials Auto-rotate
+        const testimonials = [
+            {
+                text: "عطر استثنائي حقاً. ثباته مذهل والريحة عميقة وغنية. تلقيت كمائن كثيرة منذ استخدمته.",
+                author: "أحمد المنصور",
+                role: "رائد أعمال - دبي"
+            },
+            {
+                text: "استخدمت الكثير من العطور لكن هذا مختلف. الرائحة أنيقة جداً ومناسبة لجميع المناسبات.",
+                author: "خالد العتيبي",
+                role: "مدير تنفيذي - الرياض"
+            },
+            {
+                text: "هدية مثالية! علبة فاخرة ورائحة تدوم طويلاً. أصعب علي أن أتركه في البيت.",
+                author: "محمد القحطاني",
+                role: "مهندس معماري - جدة"
+            }
+        ];
+
+        let currentTestimonial = 0;
+        const testimonialText = document.getElementById('testimonialText');
+        const testimonialAuthor = document.getElementById('testimonialAuthor');
+        const testimonialRole = document.getElementById('testimonialRole');
+
+        function updateTestimonial() {
+            const t = testimonials[currentTestimonial];
+            testimonialText.style.opacity = 0;
+            
+            setTimeout(() => {
+                testimonialText.textContent = `"${t.text}"`;
+                testimonialAuthor.textContent = t.author;
+                testimonialRole.textContent = t.role;
+                testimonialText.style.opacity = 1;
+            }, 300);
+
+            currentTestimonial = (currentTestimonial + 1) % testimonials.length;
+        }
+
+        setInterval(updateTestimonial, 5000);
+
+        // Form Submission
+        document.getElementById('orderForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            const successMessage = document.getElementById('successMessage');
+            successMessage.classList.add('show');
+            
+            setTimeout(() => {
+                e.target.reset();
+            }, 500);
+            
+            setTimeout(() => {
+                successMessage.classList.remove('show');
+            }, 4000);
+        });
+
+        // Magnetic Button Effect
+        document.querySelectorAll('.btn').forEach(btn => {
+            btn.addEventListener('mousemove', (e) => {
+                const rect = btn.getBoundingClientRect();
+                const x = e.clientX - rect.left - rect.width / 2;
+                const y = e.clientY - rect.top - rect.height / 2;
+                
+                btn.style.transform = `translate(${x * 0.2}px, ${y * 0.2}px)`;
+            });
+
+            btn.addEventListener('mouseleave', () => {
+                btn.style.transform = 'translate(0, 0)';
+            });
+        });
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                    // Close mobile menu if open
+                    navLinks.classList.remove('active');
+                }
+            });
+        });
+
+        // Parallax effect on scroll
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const storyImage = document.querySelector('.story-image');
+            if (storyImage) {
+                storyImage.style.transform = `translateY(${scrolled * 0.1}px)`;
+            }
+        });
+    </script>
+</body>
+</html>
