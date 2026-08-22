@@ -758,11 +758,22 @@
             align-items: center;
             cursor: pointer;
             background: var(--glass);
-            transition: background 0.3s ease;
+            transition: background 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+            width: 100%;
+            border: none;
+            color: inherit;
+            font-family: inherit;
+            text-align: right;
         }
 
         .note-header:hover {
             background: rgba(201, 169, 98, 0.1);
+        }
+
+        .note-header:focus-visible {
+            outline: 2px solid var(--secondary);
+            outline-offset: -2px;
+            box-shadow: 0 0 15px rgba(201, 169, 98, 0.3);
         }
 
         .note-title {
@@ -1525,18 +1536,18 @@
         
         <div class="notes-container">
             <div class="note-item active reveal-on-scroll">
-                <div class="note-header" onclick="toggleNote(this)">
+                <button type="button" class="note-header" aria-expanded="true" aria-controls="note-content-1" onclick="toggleNote(this)">
                     <div class="note-title">
                         <div class="note-dot"></div>
                         <h3>الطبقة العليا - Top Notes</h3>
                     </div>
                     <div class="note-toggle">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                             <path d="M12 5v14M5 12h14"/>
                         </svg>
                     </div>
-                </div>
-                <div class="note-content">
+                </button>
+                <div class="note-content" id="note-content-1">
                     <div class="note-content-inner">
                         <p style="color: var(--text-secondary); margin-bottom: 20px;">
                             اول ما تحس به عند الرش - الانطباع الأول الذي يدوم 15-30 دقيقة
@@ -1552,18 +1563,18 @@
             </div>
             
             <div class="note-item reveal-on-scroll">
-                <div class="note-header" onclick="toggleNote(this)">
+                <button type="button" class="note-header" aria-expanded="false" aria-controls="note-content-2" onclick="toggleNote(this)">
                     <div class="note-title">
                         <div class="note-dot"></div>
                         <h3>الطبقة الوسطى - Heart Notes</h3>
                     </div>
                     <div class="note-toggle">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                             <path d="M12 5v14M5 12h14"/>
                         </svg>
                     </div>
-                </div>
-                <div class="note-content">
+                </button>
+                <div class="note-content" id="note-content-2">
                     <div class="note-content-inner">
                         <p style="color: var(--text-secondary); margin-bottom: 20px;">
                             قلب العطر - الرائحة المميزة التي تبقى لساعات
@@ -1579,18 +1590,18 @@
             </div>
             
             <div class="note-item reveal-on-scroll">
-                <div class="note-header" onclick="toggleNote(this)">
+                <button type="button" class="note-header" aria-expanded="false" aria-controls="note-content-3" onclick="toggleNote(this)">
                     <div class="note-title">
                         <div class="note-dot"></div>
                         <h3>الطبقة الأساسية - Base Notes</h3>
                     </div>
                     <div class="note-toggle">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                             <path d="M12 5v14M5 12h14"/>
                         </svg>
                     </div>
-                </div>
-                <div class="note-content">
+                </button>
+                <div class="note-content" id="note-content-3">
                     <div class="note-content-inner">
                         <p style="color: var(--text-secondary); margin-bottom: 20px;">
                             الاساس - الرائحة العميقة التي تدوم طوال اليوم
@@ -1965,14 +1976,17 @@
             const noteItem = header.parentElement;
             const isActive = noteItem.classList.contains('active');
             
-            // Close all notes
+            // Close all notes and update aria-expanded
             document.querySelectorAll('.note-item').forEach(item => {
                 item.classList.remove('active');
+                const btn = item.querySelector('.note-header');
+                if (btn) btn.setAttribute('aria-expanded', 'false');
             });
             
             // Open clicked note if it wasn't active
             if (!isActive) {
                 noteItem.classList.add('active');
+                header.setAttribute('aria-expanded', 'true');
             }
         }
 

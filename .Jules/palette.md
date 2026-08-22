@@ -1,0 +1,3 @@
+## 2026-08-22 - Accordion Keyboard Accessibility & ARIA States
+**Learning:** Interactive accordion headers represented as plain `<div>` tags prevent keyboard accessibility and screen reader navigation. Replacing them with `<button type="button">` elements equipped with `aria-expanded` and `aria-controls` combined with CSS `:focus-visible` styling provides seamless accessibility without breaking custom dark/luxury styling.
+**Action:** Always wrap interactive accordion or disclosure triggers in standard `<button>` elements with `aria-expanded` and clear focus rings in single-file component layouts.
