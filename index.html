@@ -164,12 +164,36 @@
             width: 100%;
         }
 
+        .skip-link {
+            position: absolute;
+            top: -100px;
+            right: 16px;
+            background: var(--secondary);
+            color: var(--primary);
+            padding: 12px 24px;
+            z-index: 10001;
+            font-weight: 600;
+            text-decoration: none;
+            transition: top 0.3s ease;
+        }
+
+        .skip-link:focus {
+            top: 16px;
+        }
+
+        :focus-visible {
+            outline: 2px solid var(--secondary);
+            outline-offset: 4px;
+        }
+
         .nav-toggle {
             display: none;
             flex-direction: column;
             gap: 6px;
             cursor: pointer;
             padding: 8px;
+            background: transparent;
+            border: none;
         }
 
         .nav-toggle span {
@@ -1366,6 +1390,7 @@
     </style>
 </head>
 <body>
+    <a href="#hero" class="skip-link">الانتقال إلى المحتوى الرئيسي</a>
     <!-- Loader -->
     <div class="loader" id="loader">
         <div class="loader-content">
@@ -1384,11 +1409,11 @@
             <li><a href="#gallery">المعرض</a></li>
             <li><a href="#contact">اطلب الآن</a></li>
         </ul>
-        <div class="nav-toggle" id="navToggle">
+        <button class="nav-toggle" id="navToggle" aria-label="قائمة التنقل" aria-expanded="false">
             <span></span>
             <span></span>
             <span></span>
-        </div>
+        </button>
     </nav>
 
     <!-- Hero Section -->
@@ -1525,7 +1550,7 @@
         
         <div class="notes-container">
             <div class="note-item active reveal-on-scroll">
-                <div class="note-header" onclick="toggleNote(this)">
+                <div class="note-header" onclick="toggleNote(this)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleNote(this);}" role="button" tabindex="0" aria-expanded="true">
                     <div class="note-title">
                         <div class="note-dot"></div>
                         <h3>الطبقة العليا - Top Notes</h3>
@@ -1552,7 +1577,7 @@
             </div>
             
             <div class="note-item reveal-on-scroll">
-                <div class="note-header" onclick="toggleNote(this)">
+                <div class="note-header" onclick="toggleNote(this)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleNote(this);}" role="button" tabindex="0" aria-expanded="false">
                     <div class="note-title">
                         <div class="note-dot"></div>
                         <h3>الطبقة الوسطى - Heart Notes</h3>
@@ -1579,7 +1604,7 @@
             </div>
             
             <div class="note-item reveal-on-scroll">
-                <div class="note-header" onclick="toggleNote(this)">
+                <div class="note-header" onclick="toggleNote(this)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleNote(this);}" role="button" tabindex="0" aria-expanded="false">
                     <div class="note-title">
                         <div class="note-dot"></div>
                         <h3>الطبقة الأساسية - Base Notes</h3>
@@ -1803,7 +1828,8 @@
         });
 
         navToggle.addEventListener('click', () => {
-            navLinks.classList.toggle('active');
+            const isExpanded = navLinks.classList.toggle('active');
+            navToggle.setAttribute('aria-expanded', isExpanded);
         });
 
         // Hero Animation
@@ -1968,11 +1994,14 @@
             // Close all notes
             document.querySelectorAll('.note-item').forEach(item => {
                 item.classList.remove('active');
+                const h = item.querySelector('.note-header');
+                if (h) h.setAttribute('aria-expanded', 'false');
             });
             
             // Open clicked note if it wasn't active
             if (!isActive) {
                 noteItem.classList.add('active');
+                header.setAttribute('aria-expanded', 'true');
             }
         }
 
