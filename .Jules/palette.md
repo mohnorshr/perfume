@@ -1,0 +1,3 @@
+## 2024-08-23 - Arabic RTL Interactive Accordion Keyboard Accessibility & ARIA State Management
+**Learning:** Custom interactive elements (like accordion headers built from `div`s) in RTL luxury sites require explicit `role="button"`, `tabindex="0"`, `onkeydown` triggers (for Enter/Space), and synchronized `aria-expanded` attributes to ensure keyboard and screen-reader accessibility without disrupting dark-luxury CSS styling.
+**Action:** When working on custom interactive widgets in `index.html`, wrap or equip headers with proper ARIA semantics and keydown listeners, and ensure `aria-expanded` is kept in sync within state-toggling JavaScript functions.
