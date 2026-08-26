@@ -1,0 +1,3 @@
+## 2024-08-26 - Mobile Nav Toggle Accessibility in RTL Single-Page Apps
+**Learning:** Mobile navigation triggers using non-semantic elements (`div`) lack keyboard focus states and screen reader announcements. Converting them to `<button>` elements with `aria-label` in the appropriate language (e.g. Arabic `aria-label="القائمة الرئيسية"`) and toggling `aria-expanded` dynamically ensures proper accessibility without altering visual styling.
+**Action:** Always check icon-only or custom burger menu triggers for semantic `<button>` tags, `focus-visible` styles, and stateful ARIA attributes (`aria-expanded`, `aria-label`).
