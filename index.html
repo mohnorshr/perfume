@@ -43,6 +43,11 @@
             color: var(--primary);
         }
 
+        *:focus-visible {
+            outline: 2px solid var(--secondary);
+            outline-offset: 4px;
+        }
+
         ::-webkit-scrollbar {
             width: 8px;
         }
@@ -170,6 +175,8 @@
             gap: 6px;
             cursor: pointer;
             padding: 8px;
+            background: transparent;
+            border: none;
         }
 
         .nav-toggle span {
@@ -1384,11 +1391,11 @@
             <li><a href="#gallery">المعرض</a></li>
             <li><a href="#contact">اطلب الآن</a></li>
         </ul>
-        <div class="nav-toggle" id="navToggle">
+        <button class="nav-toggle" id="navToggle" aria-label="القائمة الرئيسية" aria-expanded="false">
             <span></span>
             <span></span>
             <span></span>
-        </div>
+        </button>
     </nav>
 
     <!-- Hero Section -->
@@ -1803,7 +1810,8 @@
         });
 
         navToggle.addEventListener('click', () => {
-            navLinks.classList.toggle('active');
+            const isExpanded = navLinks.classList.toggle('active');
+            navToggle.setAttribute('aria-expanded', isExpanded ? 'true' : 'false');
         });
 
         // Hero Animation
@@ -2059,6 +2067,7 @@
                     });
                     // Close mobile menu if open
                     navLinks.classList.remove('active');
+                    navToggle.setAttribute('aria-expanded', 'false');
                 }
             });
         });
