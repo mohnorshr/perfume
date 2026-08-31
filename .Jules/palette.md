@@ -1,0 +1,3 @@
+## 2025-02-17 - Semantic Controls for Accordions & Toggles
+**Learning:** In single-file custom HTML/CSS apps, interactive controls like accordions and nav toggles are often rendered using `<div>` elements without keyboard focus or ARIA attributes. Replacing these with `<button type="button">`, dynamic `aria-expanded`, `aria-controls`, and `:focus-visible` ring styles significantly improves screen reader usability and keyboard accessibility without affecting visual layout.
+**Action:** Always check custom interactive components for semantic `<button>` elements, dynamic `aria-expanded` attributes, and visual `:focus-visible` states.
