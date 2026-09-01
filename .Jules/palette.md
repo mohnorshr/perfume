@@ -1,0 +1,3 @@
+## 2024-05-20 - Accessible Accordions and Mobile Menu Buttons in Single-File HTML
+**Learning:** Interactive `<div onclick="...">` controls for accordions and mobile navigation menus in custom HTML setups lack native keyboard focus, `Space`/`Enter` key activation, and screen-reader state communication (`aria-expanded`, `aria-controls`). Converting these to `<button>` elements with CSS resets (`width: 100%`, `background: transparent`, `border: none`, `font-family: inherit`, `text-align: inherit`) preserves luxury visual styling while enabling full accessibility and `:focus-visible` outlines.
+**Action:** Always replace click-handler `div`s with semantic `<button>` elements and update associated JS state toggle routines to manage `aria-expanded` dynamically.
