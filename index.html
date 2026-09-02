@@ -170,6 +170,9 @@
             gap: 6px;
             cursor: pointer;
             padding: 8px;
+            border: 1px solid transparent;
+            border-radius: 4px;
+            background: transparent;
         }
 
         .nav-toggle span {
@@ -177,6 +180,13 @@
             height: 2px;
             background: var(--secondary);
             transition: all 0.3s ease;
+        }
+
+        .nav-toggle:focus-visible,
+        .note-header:focus-visible {
+            outline: 2px solid var(--secondary);
+            outline-offset: 4px;
+            border-radius: 4px;
         }
 
         /* Hero Section */
@@ -1384,7 +1394,7 @@
             <li><a href="#gallery">المعرض</a></li>
             <li><a href="#contact">اطلب الآن</a></li>
         </ul>
-        <div class="nav-toggle" id="navToggle">
+        <div class="nav-toggle" id="navToggle" role="button" tabindex="0" aria-expanded="false" aria-label="قائمة التنقل">
             <span></span>
             <span></span>
             <span></span>
@@ -1525,7 +1535,7 @@
         
         <div class="notes-container">
             <div class="note-item active reveal-on-scroll">
-                <div class="note-header" onclick="toggleNote(this)">
+                <div class="note-header" onclick="toggleNote(this)" onkeydown="handleNoteKeydown(event, this)" role="button" tabindex="0" aria-expanded="true" aria-label="الطبقة العليا - Top Notes">
                     <div class="note-title">
                         <div class="note-dot"></div>
                         <h3>الطبقة العليا - Top Notes</h3>
@@ -1552,7 +1562,7 @@
             </div>
             
             <div class="note-item reveal-on-scroll">
-                <div class="note-header" onclick="toggleNote(this)">
+                <div class="note-header" onclick="toggleNote(this)" onkeydown="handleNoteKeydown(event, this)" role="button" tabindex="0" aria-expanded="false" aria-label="الطبقة الوسطى - Heart Notes">
                     <div class="note-title">
                         <div class="note-dot"></div>
                         <h3>الطبقة الوسطى - Heart Notes</h3>
@@ -1579,7 +1589,7 @@
             </div>
             
             <div class="note-item reveal-on-scroll">
-                <div class="note-header" onclick="toggleNote(this)">
+                <div class="note-header" onclick="toggleNote(this)" onkeydown="handleNoteKeydown(event, this)" role="button" tabindex="0" aria-expanded="false" aria-label="الطبقة الأساسية - Base Notes">
                     <div class="note-title">
                         <div class="note-dot"></div>
                         <h3>الطبقة الأساسية - Base Notes</h3>
@@ -1802,8 +1812,17 @@
             }
         });
 
-        navToggle.addEventListener('click', () => {
-            navLinks.classList.toggle('active');
+        function toggleNavMenu() {
+            const isActive = navLinks.classList.toggle('active');
+            navToggle.setAttribute('aria-expanded', isActive ? 'true' : 'false');
+        }
+
+        navToggle.addEventListener('click', toggleNavMenu);
+        navToggle.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                toggleNavMenu();
+            }
         });
 
         // Hero Animation
@@ -1965,14 +1984,24 @@
             const noteItem = header.parentElement;
             const isActive = noteItem.classList.contains('active');
             
-            // Close all notes
+            // Close all notes and update ARIA states
             document.querySelectorAll('.note-item').forEach(item => {
                 item.classList.remove('active');
+                const hdr = item.querySelector('.note-header');
+                if (hdr) hdr.setAttribute('aria-expanded', 'false');
             });
             
             // Open clicked note if it wasn't active
             if (!isActive) {
                 noteItem.classList.add('active');
+                header.setAttribute('aria-expanded', 'true');
+            }
+        }
+
+        function handleNoteKeydown(event, header) {
+            if (event.key === 'Enter' || event.key === ' ') {
+                event.preventDefault();
+                toggleNote(header);
             }
         }
 
