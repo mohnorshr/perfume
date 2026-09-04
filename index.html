@@ -38,6 +38,12 @@
             line-height: 1.8;
         }
 
+        :focus-visible {
+            outline: 2px solid var(--secondary);
+            outline-offset: 4px;
+            border-radius: 4px;
+        }
+
         ::selection {
             background: var(--secondary);
             color: var(--primary);
@@ -170,6 +176,8 @@
             gap: 6px;
             cursor: pointer;
             padding: 8px;
+            background: transparent;
+            border: none;
         }
 
         .nav-toggle span {
@@ -752,6 +760,11 @@
         }
 
         .note-header {
+            width: 100%;
+            border: none;
+            text-align: inherit;
+            color: inherit;
+            font-family: inherit;
             padding: 24px 32px;
             display: flex;
             justify-content: space-between;
@@ -1384,11 +1397,11 @@
             <li><a href="#gallery">المعرض</a></li>
             <li><a href="#contact">اطلب الآن</a></li>
         </ul>
-        <div class="nav-toggle" id="navToggle">
+        <button type="button" class="nav-toggle" id="navToggle" aria-label="قائمة التنقل" aria-expanded="false">
             <span></span>
             <span></span>
             <span></span>
-        </div>
+        </button>
     </nav>
 
     <!-- Hero Section -->
@@ -1525,7 +1538,7 @@
         
         <div class="notes-container">
             <div class="note-item active reveal-on-scroll">
-                <div class="note-header" onclick="toggleNote(this)">
+                <button type="button" class="note-header" onclick="toggleNote(this)" aria-expanded="true">
                     <div class="note-title">
                         <div class="note-dot"></div>
                         <h3>الطبقة العليا - Top Notes</h3>
@@ -1535,7 +1548,7 @@
                             <path d="M12 5v14M5 12h14"/>
                         </svg>
                     </div>
-                </div>
+                </button>
                 <div class="note-content">
                     <div class="note-content-inner">
                         <p style="color: var(--text-secondary); margin-bottom: 20px;">
@@ -1552,7 +1565,7 @@
             </div>
             
             <div class="note-item reveal-on-scroll">
-                <div class="note-header" onclick="toggleNote(this)">
+                <button type="button" class="note-header" onclick="toggleNote(this)" aria-expanded="false">
                     <div class="note-title">
                         <div class="note-dot"></div>
                         <h3>الطبقة الوسطى - Heart Notes</h3>
@@ -1562,7 +1575,7 @@
                             <path d="M12 5v14M5 12h14"/>
                         </svg>
                     </div>
-                </div>
+                </button>
                 <div class="note-content">
                     <div class="note-content-inner">
                         <p style="color: var(--text-secondary); margin-bottom: 20px;">
@@ -1579,7 +1592,7 @@
             </div>
             
             <div class="note-item reveal-on-scroll">
-                <div class="note-header" onclick="toggleNote(this)">
+                <button type="button" class="note-header" onclick="toggleNote(this)" aria-expanded="false">
                     <div class="note-title">
                         <div class="note-dot"></div>
                         <h3>الطبقة الأساسية - Base Notes</h3>
@@ -1589,7 +1602,7 @@
                             <path d="M12 5v14M5 12h14"/>
                         </svg>
                     </div>
-                </div>
+                </button>
                 <div class="note-content">
                     <div class="note-content-inner">
                         <p style="color: var(--text-secondary); margin-bottom: 20px;">
@@ -1711,7 +1724,7 @@
                         <span>إرسال الطلب</span>
                     </button>
                 </div>
-                <div class="success-message" id="successMessage">
+                <div class="success-message" id="successMessage" aria-live="polite">
                     ✓ تم استلام طلبك بنجاح! سنتواصل معك قريباً.
                 </div>
             </form>
@@ -1803,7 +1816,8 @@
         });
 
         navToggle.addEventListener('click', () => {
-            navLinks.classList.toggle('active');
+            const isActive = navLinks.classList.toggle('active');
+            navToggle.setAttribute('aria-expanded', isActive ? 'true' : 'false');
         });
 
         // Hero Animation
@@ -1968,11 +1982,14 @@
             // Close all notes
             document.querySelectorAll('.note-item').forEach(item => {
                 item.classList.remove('active');
+                const btn = item.querySelector('.note-header');
+                if (btn) btn.setAttribute('aria-expanded', 'false');
             });
             
             // Open clicked note if it wasn't active
             if (!isActive) {
                 noteItem.classList.add('active');
+                header.setAttribute('aria-expanded', 'true');
             }
         }
 

@@ -1,0 +1,3 @@
+## 2024-05-20 - RTL Accessible Accordion and Navigation Toggle Buttons
+**Learning:** In a single-file vanilla HTML/JS application, clickable custom `div` elements (like mobile toggles or accordion headers) lack native keyboard focus and screen reader semantics (`aria-expanded`). Converting them to `<button>` elements with CSS resets (`width: 100%`, `text-align: inherit`, `border: none`, `background: transparent`) preserves dark luxury design while enabling seamless keyboard and screen reader interaction.
+**Action:** Always wrap interactive accordion triggers and toggle controls in semantic `<button>` tags with updated `aria-expanded` and `:focus-visible` ring styles.
