@@ -170,6 +170,14 @@
             gap: 6px;
             cursor: pointer;
             padding: 8px;
+            background: transparent;
+            border: none;
+            border-radius: 4px;
+        }
+
+        .nav-toggle:focus-visible {
+            outline: 2px solid var(--secondary);
+            outline-offset: 2px;
         }
 
         .nav-toggle span {
@@ -1384,11 +1392,11 @@
             <li><a href="#gallery">المعرض</a></li>
             <li><a href="#contact">اطلب الآن</a></li>
         </ul>
-        <div class="nav-toggle" id="navToggle">
+        <button type="button" class="nav-toggle" id="navToggle" aria-label="فتح القائمة" aria-expanded="false" aria-controls="navLinks">
             <span></span>
             <span></span>
             <span></span>
-        </div>
+        </button>
     </nav>
 
     <!-- Hero Section -->
@@ -1802,8 +1810,21 @@
             }
         });
 
+        function updateNavState(isOpen) {
+            if (isOpen) {
+                navLinks.classList.add('active');
+                navToggle.setAttribute('aria-expanded', 'true');
+                navToggle.setAttribute('aria-label', 'إغلاق القائمة');
+            } else {
+                navLinks.classList.remove('active');
+                navToggle.setAttribute('aria-expanded', 'false');
+                navToggle.setAttribute('aria-label', 'فتح القائمة');
+            }
+        }
+
         navToggle.addEventListener('click', () => {
-            navLinks.classList.toggle('active');
+            const isOpen = !navLinks.classList.contains('active');
+            updateNavState(isOpen);
         });
 
         // Hero Animation
@@ -2058,7 +2079,7 @@
                         block: 'start'
                     });
                     // Close mobile menu if open
-                    navLinks.classList.remove('active');
+                    updateNavState(false);
                 }
             });
         });
