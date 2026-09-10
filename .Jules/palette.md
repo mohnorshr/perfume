@@ -1,0 +1,3 @@
+## 2026-09-10 - Semantic Mobile Nav Toggles with Dynamic ARIA States
+**Learning:** In custom landing pages using raw HTML/CSS/JS without UI frameworks, mobile menu toggles are frequently built using `<div>` elements without `button` semantics, `tabindex`, or ARIA properties (`aria-expanded`, `aria-label`, `aria-controls`), making them completely inaccessible to keyboard users and screen readers.
+**Action:** Always convert custom mobile menu toggle containers to `<button type="button">`, provide visible focus indicators (`:focus-visible`), and synchronize `aria-expanded` and state-aware `aria-label`s dynamically in JS handlers.
