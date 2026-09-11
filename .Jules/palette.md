@@ -1,0 +1,3 @@
+## 2026-09-11 - RTL Accordion Keyboard Accessibility & ARIA State Management
+**Learning:** Replacing non-semantic click containers (`div`) with native `<button>` elements in RTL custom accordions requires explicit button CSS reset rules (`width: 100%`, `text-align: right`, `font-family: inherit`) to preserve exact visual alignment while unlocking native keyboard activation (Enter/Space) and ARIA attributes (`aria-expanded`, `aria-controls`, `role="region"`).
+**Action:** When converting accordion headers to buttons in custom single-page apps, reset button styles and sync `aria-expanded` attributes in the JS toggle handler.
