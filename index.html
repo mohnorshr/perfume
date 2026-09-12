@@ -1525,7 +1525,7 @@
         
         <div class="notes-container">
             <div class="note-item active reveal-on-scroll">
-                <div class="note-header" onclick="toggleNote(this)">
+                <div class="note-header" onclick="toggleNote(this)" role="button" tabindex="0" aria-expanded="true" aria-controls="note-content-1">
                     <div class="note-title">
                         <div class="note-dot"></div>
                         <h3>الطبقة العليا - Top Notes</h3>
@@ -1536,7 +1536,7 @@
                         </svg>
                     </div>
                 </div>
-                <div class="note-content">
+                <div class="note-content" id="note-content-1">
                     <div class="note-content-inner">
                         <p style="color: var(--text-secondary); margin-bottom: 20px;">
                             اول ما تحس به عند الرش - الانطباع الأول الذي يدوم 15-30 دقيقة
@@ -1552,7 +1552,7 @@
             </div>
             
             <div class="note-item reveal-on-scroll">
-                <div class="note-header" onclick="toggleNote(this)">
+                <div class="note-header" onclick="toggleNote(this)" role="button" tabindex="0" aria-expanded="false" aria-controls="note-content-2">
                     <div class="note-title">
                         <div class="note-dot"></div>
                         <h3>الطبقة الوسطى - Heart Notes</h3>
@@ -1563,7 +1563,7 @@
                         </svg>
                     </div>
                 </div>
-                <div class="note-content">
+                <div class="note-content" id="note-content-2">
                     <div class="note-content-inner">
                         <p style="color: var(--text-secondary); margin-bottom: 20px;">
                             قلب العطر - الرائحة المميزة التي تبقى لساعات
@@ -1579,7 +1579,7 @@
             </div>
             
             <div class="note-item reveal-on-scroll">
-                <div class="note-header" onclick="toggleNote(this)">
+                <div class="note-header" onclick="toggleNote(this)" role="button" tabindex="0" aria-expanded="false" aria-controls="note-content-3">
                     <div class="note-title">
                         <div class="note-dot"></div>
                         <h3>الطبقة الأساسية - Base Notes</h3>
@@ -1590,7 +1590,7 @@
                         </svg>
                     </div>
                 </div>
-                <div class="note-content">
+                <div class="note-content" id="note-content-3">
                     <div class="note-content-inner">
                         <p style="color: var(--text-secondary); margin-bottom: 20px;">
                             الاساس - الرائحة العميقة التي تدوم طوال اليوم
@@ -1965,16 +1965,31 @@
             const noteItem = header.parentElement;
             const isActive = noteItem.classList.contains('active');
             
-            // Close all notes
+            // Close all notes and update ARIA attributes
             document.querySelectorAll('.note-item').forEach(item => {
                 item.classList.remove('active');
+                const h = item.querySelector('.note-header');
+                if (h) {
+                    h.setAttribute('aria-expanded', 'false');
+                }
             });
             
             // Open clicked note if it wasn't active
             if (!isActive) {
                 noteItem.classList.add('active');
+                header.setAttribute('aria-expanded', 'true');
             }
         }
+
+        // Add keyboard interaction for accordion headers
+        document.querySelectorAll('.note-header').forEach(header => {
+            header.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    toggleNote(header);
+                }
+            });
+        });
 
         // Testimonials Auto-rotate
         const testimonials = [
