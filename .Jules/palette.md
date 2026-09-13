@@ -1,0 +1,3 @@
+## 2024-09-13 - [Semantic Accordion & Mobile Nav Controls]
+**Learning:** Single-page luxury websites with dark themes often use non-semantic `div` triggers for accordions and mobile navigation toggles, breaking keyboard navigation and screen reader semantics. Refactoring triggers to `<button>` with explicit `:focus-visible` styling (`--secondary` gold outline with offset) and dynamic `aria-expanded` updates ensures seamless accessibility without breaking luxury styling.
+**Action:** Always check custom interactive elements (`.nav-toggle`, `.note-header`) for semantic `<button>` markup, `:focus-visible` outlines, and active `aria-expanded` attributes.
