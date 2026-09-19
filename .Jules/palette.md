@@ -1,0 +1,3 @@
+## 2024-09-19 - RTL Accordion & Navigation Button Accessibility
+**Learning:** In single-file custom HTML/JS apps with RTL support, interactive custom divs (such as accordion headers and menu toggles) lack native keyboard focusability and screen reader state communication. Converting them to `<button>` with explicit CSS button style resets (`width: 100%`, `text-align: inherit`, `border: none`) and dynamic `aria-expanded` attributes restores full keyboard accessibility without breaking RTL layout or visual hierarchy.
+**Action:** Always replace interactive `<div>` controls with `<button>` elements, reset button styles, add `:focus-visible` outline indicators, and sync `aria-expanded` in JS click handlers.

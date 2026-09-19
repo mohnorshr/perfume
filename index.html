@@ -43,6 +43,14 @@
             color: var(--primary);
         }
 
+        a:focus-visible,
+        button:focus-visible,
+        input:focus-visible,
+        textarea:focus-visible {
+            outline: 2px solid var(--secondary);
+            outline-offset: 4px;
+        }
+
         ::-webkit-scrollbar {
             width: 8px;
         }
@@ -170,6 +178,8 @@
             gap: 6px;
             cursor: pointer;
             padding: 8px;
+            background: transparent;
+            border: none;
         }
 
         .nav-toggle span {
@@ -752,6 +762,11 @@
         }
 
         .note-header {
+            width: 100%;
+            border: none;
+            color: inherit;
+            font: inherit;
+            text-align: inherit;
             padding: 24px 32px;
             display: flex;
             justify-content: space-between;
@@ -1384,11 +1399,11 @@
             <li><a href="#gallery">المعرض</a></li>
             <li><a href="#contact">اطلب الآن</a></li>
         </ul>
-        <div class="nav-toggle" id="navToggle">
+        <button type="button" class="nav-toggle" id="navToggle" aria-label="قائمة التنقل" aria-expanded="false" aria-controls="navLinks">
             <span></span>
             <span></span>
             <span></span>
-        </div>
+        </button>
     </nav>
 
     <!-- Hero Section -->
@@ -1525,18 +1540,18 @@
         
         <div class="notes-container">
             <div class="note-item active reveal-on-scroll">
-                <div class="note-header" onclick="toggleNote(this)">
+                <button type="button" class="note-header" aria-expanded="true" aria-controls="note-content-1" onclick="toggleNote(this)">
                     <div class="note-title">
                         <div class="note-dot"></div>
                         <h3>الطبقة العليا - Top Notes</h3>
                     </div>
-                    <div class="note-toggle">
+                    <div class="note-toggle" aria-hidden="true">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <path d="M12 5v14M5 12h14"/>
                         </svg>
                     </div>
-                </div>
-                <div class="note-content">
+                </button>
+                <div class="note-content" id="note-content-1">
                     <div class="note-content-inner">
                         <p style="color: var(--text-secondary); margin-bottom: 20px;">
                             اول ما تحس به عند الرش - الانطباع الأول الذي يدوم 15-30 دقيقة
@@ -1552,18 +1567,18 @@
             </div>
             
             <div class="note-item reveal-on-scroll">
-                <div class="note-header" onclick="toggleNote(this)">
+                <button type="button" class="note-header" aria-expanded="false" aria-controls="note-content-2" onclick="toggleNote(this)">
                     <div class="note-title">
                         <div class="note-dot"></div>
                         <h3>الطبقة الوسطى - Heart Notes</h3>
                     </div>
-                    <div class="note-toggle">
+                    <div class="note-toggle" aria-hidden="true">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <path d="M12 5v14M5 12h14"/>
                         </svg>
                     </div>
-                </div>
-                <div class="note-content">
+                </button>
+                <div class="note-content" id="note-content-2">
                     <div class="note-content-inner">
                         <p style="color: var(--text-secondary); margin-bottom: 20px;">
                             قلب العطر - الرائحة المميزة التي تبقى لساعات
@@ -1579,18 +1594,18 @@
             </div>
             
             <div class="note-item reveal-on-scroll">
-                <div class="note-header" onclick="toggleNote(this)">
+                <button type="button" class="note-header" aria-expanded="false" aria-controls="note-content-3" onclick="toggleNote(this)">
                     <div class="note-title">
                         <div class="note-dot"></div>
                         <h3>الطبقة الأساسية - Base Notes</h3>
                     </div>
-                    <div class="note-toggle">
+                    <div class="note-toggle" aria-hidden="true">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <path d="M12 5v14M5 12h14"/>
                         </svg>
                     </div>
-                </div>
-                <div class="note-content">
+                </button>
+                <div class="note-content" id="note-content-3">
                     <div class="note-content-inner">
                         <p style="color: var(--text-secondary); margin-bottom: 20px;">
                             الاساس - الرائحة العميقة التي تدوم طوال اليوم
@@ -1803,7 +1818,8 @@
         });
 
         navToggle.addEventListener('click', () => {
-            navLinks.classList.toggle('active');
+            const isActive = navLinks.classList.toggle('active');
+            navToggle.setAttribute('aria-expanded', isActive ? 'true' : 'false');
         });
 
         // Hero Animation
@@ -1968,11 +1984,14 @@
             // Close all notes
             document.querySelectorAll('.note-item').forEach(item => {
                 item.classList.remove('active');
+                const btn = item.querySelector('.note-header');
+                if (btn) btn.setAttribute('aria-expanded', 'false');
             });
             
             // Open clicked note if it wasn't active
             if (!isActive) {
                 noteItem.classList.add('active');
+                header.setAttribute('aria-expanded', 'true');
             }
         }
 
