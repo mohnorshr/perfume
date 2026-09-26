@@ -1,0 +1,3 @@
+## 2024-09-26 - Semantic Interactive Elements in Dark Luxury RTL Interfaces
+**Learning:** In luxury interactive single-page landing pages built with vanilla HTML/CSS/JS, custom components like hamburger menu toggles (`.nav-toggle`) and accordion triggers (`.note-header`) are frequently implemented using `<div>` elements with click handlers. This completely excludes keyboard users and screen readers from accessing core sections or navigation menus.
+**Action:** Always convert custom interactive triggers to native `<button>` elements, provide explicit `aria-label` or text content, manage `aria-expanded` attributes dynamically via JavaScript, and implement `focus-visible` styling tailored to the dark luxury palette.
