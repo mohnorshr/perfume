@@ -1,0 +1,3 @@
+## 2024-09-29 - Vanilla JS Luxury Accordions & Navigation Toggles Accessibility
+**Learning:** In custom single-file landing pages, interactive controls like fragrance accordions (`.note-header`) and nav toggles (`.nav-toggle`) were implemented as non-focusable `<div>` elements with `onclick` handlers, bypassing keyboard navigation and screen readers completely.
+**Action:** Convert interactive `<div>` containers into `<button type="button">` with CSS resets (`width: 100%`, `text-align: inherit`, `font: inherit`, `color: inherit`, `border: none`) and `:focus-visible` outline rings to ensure WCAG compliance without breaking dark-luxury visual styles. Keep `aria-expanded` and `aria-controls` updated in JS toggle handlers.
