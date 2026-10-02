@@ -38,6 +38,12 @@
             line-height: 1.8;
         }
 
+        a:focus-visible,
+        button:focus-visible {
+            outline: 2px solid var(--secondary);
+            outline-offset: 4px;
+        }
+
         ::selection {
             background: var(--secondary);
             color: var(--primary);
@@ -170,6 +176,8 @@
             gap: 6px;
             cursor: pointer;
             padding: 8px;
+            background: transparent;
+            border: none;
         }
 
         .nav-toggle span {
@@ -1384,11 +1392,11 @@
             <li><a href="#gallery">المعرض</a></li>
             <li><a href="#contact">اطلب الآن</a></li>
         </ul>
-        <div class="nav-toggle" id="navToggle">
+        <button class="nav-toggle" id="navToggle" type="button" aria-label="قائمة التنقل" aria-expanded="false" aria-controls="navLinks">
             <span></span>
             <span></span>
             <span></span>
-        </div>
+        </button>
     </nav>
 
     <!-- Hero Section -->
@@ -1803,7 +1811,8 @@
         });
 
         navToggle.addEventListener('click', () => {
-            navLinks.classList.toggle('active');
+            const isExpanded = navLinks.classList.toggle('active');
+            navToggle.setAttribute('aria-expanded', isExpanded);
         });
 
         // Hero Animation
