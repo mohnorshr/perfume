@@ -1,0 +1,3 @@
+## 2025-05-18 - Accordion & Mobile Nav Button Conversions in RTL Single-File Apps
+**Learning:** Replacing non-semantic `<div>` click handlers with `<button>` elements in single-file HTML/CSS applications with RTL layout requires resetting default button styling (`border`, `background`, `font-family`, `text-align: right`, `width: 100%`) to prevent layout shifts while enabling focus indicators and screen reader attributes (`aria-expanded`, `aria-controls`).
+**Action:** Always apply CSS button resets tailored for RTL flex containers when converting interactive `div` elements to semantic `button` elements.
