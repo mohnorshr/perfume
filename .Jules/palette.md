@@ -1,0 +1,3 @@
+## 2024-05-18 - Semantic Buttons and Accordion ARIA States in RTL Landing Pages
+**Learning:** Replacing non-semantic interactive `<div>` elements (like accordion headers or custom hamburger menus) with semantic `<button>` elements requires CSS resets (`font: inherit`, `text-align: inherit`, `color: inherit`, `border: none`) to ensure RTL text direction and glassmorphism styling are perfectly maintained while unlocking native keyboard tab order, focus, and ARIA state announcements (`aria-expanded`, `aria-controls`).
+**Action:** Always wrap interactive accordion headers and icon-only toggles in semantic `<button>` tags with reset styles and dynamic `aria-expanded` attributes.
