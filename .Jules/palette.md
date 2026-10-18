@@ -1,0 +1,3 @@
+## 2024-10-18 - Accordion and Mobile Nav ARIA State Synchronization
+**Learning:** Single-page vanilla JS sites often use styled `div`s with `onclick` for accordions and hamburger navigation, which hides controls from screen readers and keyboard users. Using semantic `<button>` tags or `role="button"` with `tabindex="0"`, `aria-expanded`, `aria-controls`, keydown listeners for Space/Enter, and `:focus-visible` styling ensures seamless accessibility without altering visual design.
+**Action:** When auditing vanilla JS interactive components, check for non-semantic clickable elements and attach `aria-expanded` state synchronization to click and keydown handlers.
