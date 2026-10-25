@@ -170,6 +170,13 @@
             gap: 6px;
             cursor: pointer;
             padding: 8px;
+            border-radius: 4px;
+            outline: none;
+        }
+
+        .nav-toggle:focus-visible {
+            outline: 2px solid var(--secondary);
+            outline-offset: 2px;
         }
 
         .nav-toggle span {
@@ -1384,7 +1391,7 @@
             <li><a href="#gallery">المعرض</a></li>
             <li><a href="#contact">اطلب الآن</a></li>
         </ul>
-        <div class="nav-toggle" id="navToggle">
+        <div class="nav-toggle" id="navToggle" role="button" tabindex="0" aria-label="القائمة الرئيسية" aria-expanded="false">
             <span></span>
             <span></span>
             <span></span>
@@ -1802,8 +1809,17 @@
             }
         });
 
-        navToggle.addEventListener('click', () => {
-            navLinks.classList.toggle('active');
+        function toggleNavMenu() {
+            const isActive = navLinks.classList.toggle('active');
+            navToggle.setAttribute('aria-expanded', isActive ? 'true' : 'false');
+        }
+
+        navToggle.addEventListener('click', toggleNavMenu);
+        navToggle.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                toggleNavMenu();
+            }
         });
 
         // Hero Animation
