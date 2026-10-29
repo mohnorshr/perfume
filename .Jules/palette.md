@@ -1,0 +1,3 @@
+## 2024-10-29 - Accordion and Nav Toggle Accessibility
+**Learning:** In single-file HTML landing pages, interactive accordions and custom menu triggers implemented as `<div>` lack keyboard accessibility and screen reader attributes. Converting them to `<button type="button">` with `:focus-visible` styling and syncing `aria-expanded` attributes provides seamless screen reader support without breaking visual layout.
+**Action:** Always replace click-handler `<div>` triggers with `<button type="button">` resetting browser default button styles (`border: none`, `background: transparent/inherit`, `font-family: inherit`, `text-align: inherit`) and maintain `aria-expanded` and `aria-controls` states in JS.
