@@ -1,0 +1,3 @@
+## 2024-11-01 - Accessible WAI-ARIA Accordions in Single-Page Vanilla Webpages
+**Learning:** Custom interactive disclosure widgets (like fragrance note accordions) built with plain `div` tags lack keyboard focusability, screen reader semantics, and dynamic state announcement (`aria-expanded`). Without `role="button"` and `tabindex="0"`, keyboard-only users cannot access content behind accordion panels.
+**Action:** When implementing or enhancing collapsible cards/accordions, always provide explicit `role="button"`, `tabindex="0"`, `aria-controls` paired with `role="region"`, synchronize `aria-expanded` in state change handlers, and attach `Enter`/`Space` keydown handlers alongside `:focus-visible` styling.

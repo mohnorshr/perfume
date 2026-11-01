@@ -765,6 +765,12 @@
             background: rgba(201, 169, 98, 0.1);
         }
 
+        .note-header:focus-visible {
+            outline: 2px solid var(--secondary);
+            outline-offset: -2px;
+            background: rgba(201, 169, 98, 0.12);
+        }
+
         .note-title {
             display: flex;
             align-items: center;
@@ -1525,18 +1531,18 @@
         
         <div class="notes-container">
             <div class="note-item active reveal-on-scroll">
-                <div class="note-header" onclick="toggleNote(this)">
+                <div class="note-header" id="note-header-top" role="button" tabindex="0" aria-expanded="true" aria-controls="note-content-top" onclick="toggleNote(this)">
                     <div class="note-title">
                         <div class="note-dot"></div>
                         <h3>الطبقة العليا - Top Notes</h3>
                     </div>
-                    <div class="note-toggle">
+                    <div class="note-toggle" aria-hidden="true">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <path d="M12 5v14M5 12h14"/>
                         </svg>
                     </div>
                 </div>
-                <div class="note-content">
+                <div class="note-content" id="note-content-top" role="region" aria-labelledby="note-header-top">
                     <div class="note-content-inner">
                         <p style="color: var(--text-secondary); margin-bottom: 20px;">
                             اول ما تحس به عند الرش - الانطباع الأول الذي يدوم 15-30 دقيقة
@@ -1552,18 +1558,18 @@
             </div>
             
             <div class="note-item reveal-on-scroll">
-                <div class="note-header" onclick="toggleNote(this)">
+                <div class="note-header" id="note-header-heart" role="button" tabindex="0" aria-expanded="false" aria-controls="note-content-heart" onclick="toggleNote(this)">
                     <div class="note-title">
                         <div class="note-dot"></div>
                         <h3>الطبقة الوسطى - Heart Notes</h3>
                     </div>
-                    <div class="note-toggle">
+                    <div class="note-toggle" aria-hidden="true">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <path d="M12 5v14M5 12h14"/>
                         </svg>
                     </div>
                 </div>
-                <div class="note-content">
+                <div class="note-content" id="note-content-heart" role="region" aria-labelledby="note-header-heart">
                     <div class="note-content-inner">
                         <p style="color: var(--text-secondary); margin-bottom: 20px;">
                             قلب العطر - الرائحة المميزة التي تبقى لساعات
@@ -1579,18 +1585,18 @@
             </div>
             
             <div class="note-item reveal-on-scroll">
-                <div class="note-header" onclick="toggleNote(this)">
+                <div class="note-header" id="note-header-base" role="button" tabindex="0" aria-expanded="false" aria-controls="note-content-base" onclick="toggleNote(this)">
                     <div class="note-title">
                         <div class="note-dot"></div>
                         <h3>الطبقة الأساسية - Base Notes</h3>
                     </div>
-                    <div class="note-toggle">
+                    <div class="note-toggle" aria-hidden="true">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <path d="M12 5v14M5 12h14"/>
                         </svg>
                     </div>
                 </div>
-                <div class="note-content">
+                <div class="note-content" id="note-content-base" role="region" aria-labelledby="note-header-base">
                     <div class="note-content-inner">
                         <p style="color: var(--text-secondary); margin-bottom: 20px;">
                             الاساس - الرائحة العميقة التي تدوم طوال اليوم
@@ -1965,16 +1971,29 @@
             const noteItem = header.parentElement;
             const isActive = noteItem.classList.contains('active');
             
-            // Close all notes
+            // Close all notes and update ARIA
             document.querySelectorAll('.note-item').forEach(item => {
                 item.classList.remove('active');
+                const hdr = item.querySelector('.note-header');
+                if (hdr) hdr.setAttribute('aria-expanded', 'false');
             });
             
             // Open clicked note if it wasn't active
             if (!isActive) {
                 noteItem.classList.add('active');
+                header.setAttribute('aria-expanded', 'true');
             }
         }
+
+        // Support keyboard interaction (Enter / Space) for accordion headers
+        document.querySelectorAll('.note-header').forEach(header => {
+            header.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ' || e.code === 'Space') {
+                    e.preventDefault();
+                    toggleNote(header);
+                }
+            });
+        });
 
         // Testimonials Auto-rotate
         const testimonials = [
