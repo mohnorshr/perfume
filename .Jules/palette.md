@@ -1,0 +1,3 @@
+## 2025-02-17 - Accessible Custom Accordions with Semantic ARIA & Focus States
+**Learning:** Custom interactive disclosure widgets built with `<div>` elements without native button semantics or keyboard listeners block assistive technologies and keyboard-only users. Accordion headers need `role="button"`, `tabindex="0"`, `aria-expanded`, and `aria-controls` linked to content panels with `role="region"` and `aria-labelledby`, paired with clear `:focus-visible` styles and Enter/Space event handlers.
+**Action:** When implementing or refining interactive expand/collapse or drawer components, ensure keyboard activation (Enter/Space), proper ARIA relationships (`aria-expanded`, `aria-controls`), and theme-matching `:focus-visible` outlines are applied.
