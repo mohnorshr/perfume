@@ -1,0 +1,5 @@
+# Palette's UX Journal
+
+## 2025-05-18 - Dark Luxury Accordions & Keyboard Navigation
+**Learning:** Custom interactive accordion components in dark luxury themes often rely on `div` elements with `onclick` handlers, rendering them completely inaccessible to keyboard and screen reader users. When converting these to semantic `<button>` elements, browser default button styles (background, border, font-family inheritance, width) can distort the delicate luxury typography and layout unless explicitly reset. Furthermore, standard high-contrast blue focus rings clash with warm gold/dark themes; providing a customized `:focus-visible` ring using the theme's accent color (`var(--secondary)`) with an `outline-offset` preserves the premium aesthetic while meeting WCAG 2.4.7 focus appearance requirements.
+**Action:** Always replace click-enabled `div` headers with semantic `<button>` tags paired with `aria-expanded` and `aria-controls`, reset button box-model properties to match existing styling, and pair with a theme-tailored `:focus-visible` ring.
