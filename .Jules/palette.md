@@ -1,0 +1,5 @@
+# Palette's Journal - Critical UX/A11y Learnings
+
+## 2026-11-06 - Interactive Accordion Accessibility in Vanilla RTL Pages
+**Learning:** In single-page vanilla web showcases with custom dark luxury aesthetics, accordion components often use styled `div` wrappers with inline `onclick` handlers. This creates total keyboard and screen-reader inaccessibility: screen readers cannot identify the disclosure controls, `Enter`/`Space` cannot trigger toggling, and there are no focus rings. Converting the trigger to `<button type="button" class="note-header">` while preserving RTL layout (`text-align: right`, `width: 100%`) alongside `aria-expanded`, `aria-controls`, and `:focus-visible` styling provides complete a11y without compromising the bespoke visual design.
+**Action:** When auditing collapsible or accordion sections in vanilla HTML showcases, immediately check whether triggers are semantic `<button>` elements with dynamic `aria-expanded` and clear `:focus-visible` outlines matching the site's accent tokens.
