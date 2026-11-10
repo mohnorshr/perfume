@@ -1,0 +1,3 @@
+## 2026-11-10 - Accordion Disclosures Accessibility & Focus Visibility
+**Learning:** In custom luxury dark-themed single-page templates, interactive collapsible accordions are frequently built with bare `div` elements and mouse-only click handlers. Adding `role="button"`, `tabindex="0"`, dynamic `aria-expanded`, `aria-controls`, and `:focus-visible` styling provides seamless keyboard and screen-reader accessibility while preserving sleek luxury aesthetics.
+**Action:** When inspecting interactive expandable content sections, ensure disclosure triggers are keyboard-activatable (`Enter`/`Space`) and announce their expanded state to assistive technology.
