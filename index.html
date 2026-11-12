@@ -752,6 +752,11 @@
         }
 
         .note-header {
+            width: 100%;
+            border: none;
+            color: inherit;
+            font-family: inherit;
+            text-align: right;
             padding: 24px 32px;
             display: flex;
             justify-content: space-between;
@@ -763,6 +768,11 @@
 
         .note-header:hover {
             background: rgba(201, 169, 98, 0.1);
+        }
+
+        .note-header:focus-visible {
+            outline: 2px solid var(--secondary);
+            outline-offset: -2px;
         }
 
         .note-title {
@@ -1525,7 +1535,7 @@
         
         <div class="notes-container">
             <div class="note-item active reveal-on-scroll">
-                <div class="note-header" onclick="toggleNote(this)">
+                <button type="button" class="note-header" id="note-header-top" aria-expanded="true" aria-controls="note-content-top" onclick="toggleNote(this)">
                     <div class="note-title">
                         <div class="note-dot"></div>
                         <h3>الطبقة العليا - Top Notes</h3>
@@ -1535,14 +1545,14 @@
                             <path d="M12 5v14M5 12h14"/>
                         </svg>
                     </div>
-                </div>
-                <div class="note-content">
+                </button>
+                <div class="note-content" id="note-content-top" role="region" aria-labelledby="note-header-top">
                     <div class="note-content-inner">
                         <p style="color: var(--text-secondary); margin-bottom: 20px;">
                             اول ما تحس به عند الرش - الانطباع الأول الذي يدوم 15-30 دقيقة
                         </p>
                         <div class="note-ingredients">
-                            <span class="ingredient">البرغamot الإيطالي</span>
+                            <span class="ingredient">البرغموت الإيطالي</span>
                             <span class="ingredient">الفلفل الوردي</span>
                             <span class="ingredient">الليمون الصقلي</span>
                             <span class="ingredient">الزنجبيل الطازج</span>
@@ -1552,7 +1562,7 @@
             </div>
             
             <div class="note-item reveal-on-scroll">
-                <div class="note-header" onclick="toggleNote(this)">
+                <button type="button" class="note-header" id="note-header-heart" aria-expanded="false" aria-controls="note-content-heart" onclick="toggleNote(this)">
                     <div class="note-title">
                         <div class="note-dot"></div>
                         <h3>الطبقة الوسطى - Heart Notes</h3>
@@ -1562,8 +1572,8 @@
                             <path d="M12 5v14M5 12h14"/>
                         </svg>
                     </div>
-                </div>
-                <div class="note-content">
+                </button>
+                <div class="note-content" id="note-content-heart" role="region" aria-labelledby="note-header-heart">
                     <div class="note-content-inner">
                         <p style="color: var(--text-secondary); margin-bottom: 20px;">
                             قلب العطر - الرائحة المميزة التي تبقى لساعات
@@ -1579,7 +1589,7 @@
             </div>
             
             <div class="note-item reveal-on-scroll">
-                <div class="note-header" onclick="toggleNote(this)">
+                <button type="button" class="note-header" id="note-header-base" aria-expanded="false" aria-controls="note-content-base" onclick="toggleNote(this)">
                     <div class="note-title">
                         <div class="note-dot"></div>
                         <h3>الطبقة الأساسية - Base Notes</h3>
@@ -1589,8 +1599,8 @@
                             <path d="M12 5v14M5 12h14"/>
                         </svg>
                     </div>
-                </div>
-                <div class="note-content">
+                </button>
+                <div class="note-content" id="note-content-base" role="region" aria-labelledby="note-header-base">
                     <div class="note-content-inner">
                         <p style="color: var(--text-secondary); margin-bottom: 20px;">
                             الاساس - الرائحة العميقة التي تدوم طوال اليوم
@@ -1963,16 +1973,19 @@
         // Notes Accordion
         function toggleNote(header) {
             const noteItem = header.parentElement;
-            const isActive = noteItem.classList.contains('active');
+            const willOpen = !noteItem.classList.contains('active');
             
-            // Close all notes
+            // Close all notes and update aria-expanded
             document.querySelectorAll('.note-item').forEach(item => {
                 item.classList.remove('active');
+                const btn = item.querySelector('.note-header');
+                if (btn) btn.setAttribute('aria-expanded', 'false');
             });
             
             // Open clicked note if it wasn't active
-            if (!isActive) {
+            if (willOpen) {
                 noteItem.classList.add('active');
+                header.setAttribute('aria-expanded', 'true');
             }
         }
 
